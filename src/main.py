@@ -18,7 +18,7 @@ if __name__ == '__main__':
 	
 	# build the next url
 	c_url 	= URL+link.get('href')
-	print(f"... Loading the {CATEGORY} books category at: {c_url}  ...\n")
+	print(f"... Loading the {CATEGORY.upper()} books category at: {c_url}  ...\n")
 	book_res= requests.get(c_url)
 	
 	c_soup 	= BeautifulSoup(book_res.text,'html.parser')
