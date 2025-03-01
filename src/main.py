@@ -8,7 +8,6 @@ from urllib.parse import urljoin
 from utils import extract_upc
 
 
-
 CATEGORY 	= 'humor'
 URL 		= 'https://books.toscrape.com/'
 
@@ -39,18 +38,28 @@ if __name__ == '__main__':
 	for book in book_li:
 		# Navigate to the book page to get the UPC information 
 		# we can get the url relative path with the same extraction for the title
-		a_tag 	= book.find('h3').find('a')
-		
+		a_tag 					= book.find('h3').find('a')		
 		# Load the response with new url that is joined from url_path
 		# a_tag.get('href') will pull the relative url path for the specific book
-		b_res 	= requests.get(urljoin(c_url,a_tag.get('href')))
-		b_soup 	= BeautifulSoup(b_res.text,'html.parser')
+		# Create the dictionary object and add the keys to it.
+		book_dict 				= {'upc':extract_upc(c_url, a_tag.get('href'))}
 		# Extract the title
-		title 	= a_tag.get('title')
+		book_dict['title'] 		= a_tag.get('title')
 		# Extract the price
-		price 	= book.find('div',class_='product_price').contents
+		book_dict['image_url'] 	= book.find('div',class_='image_container').find('img').get('src') 
 		# Extract the image url 
 		""" The alt tag in the image seems to match the title for the book. However I think it is a 
 			better system to rely on the actual html text.
 		"""
-		img_url = book.find('div',class_='image_container').find('img').get('src') 
+		# Price is encoded and needs to be corrected to better represent the pound currency
+		book_dict['price'] 		= book.find('p',class_='price_color').contents[0].encode(cat_res.encoding).decode('latin-1')
+		print(f'Finished loading {book_dict["title"]}')
+		if 'dict_list' in locals():
+			dict_list.append(book_dict)
+			print('test')
+		else:
+			dict_list = [book_dict]
+		del book_dict
+		
+	# print the json dumps 
+	print(json.dumps(dict_list))
