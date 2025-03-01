@@ -5,7 +5,7 @@ import re
 import json 
 from urllib.parse import urljoin	
 # Modules created for repeatability
-from utils import extract_upc
+from utils import extract_book_details
 
 
 CATEGORY 	= 'humor'
@@ -36,30 +36,14 @@ if __name__ == '__main__':
 	book_li = c_soup.find_all('li',class_=re.compile('col'))
 	
 	for book in book_li:
-		# Navigate to the book page to get the UPC information 
-		# we can get the url relative path with the same extraction for the title
-		a_tag 					= book.find('h3').find('a')		
-		# Load the response with new url that is joined from url_path
-		# a_tag.get('href') will pull the relative url path for the specific book
-		# Create the dictionary object and add the keys to it.
-		book_dict 				= {'upc':extract_upc(c_url, a_tag.get('href'))}
-		# Extract the title
-		book_dict['title'] 		= a_tag.get('title')
-		# Extract the price
-		book_dict['image_url'] 	= book.find('div',class_='image_container').find('img').get('src') 
-		# Extract the image url 
-		""" The alt tag in the image seems to match the title for the book. However I think it is a 
-			better system to rely on the actual html text.
-		"""
-		# Price is encoded and needs to be corrected to better represent the pound currency
-		book_dict['price'] 		= book.find('p',class_='price_color').contents[0].encode(cat_res.encoding).decode('latin-1')
-		print(f'Finished loading {book_dict["title"]}')
+		# Created a method to extract out this information
+		book_dict 	= extract_book_details(book,c_url)
 		if 'dict_list' in locals():
 			dict_list.append(book_dict)
-			print('test')
 		else:
 			dict_list = [book_dict]
 		del book_dict
 		
-	# print the json dumps 
-	print(json.dumps(dict_list))
+	# print the json dumps. The price is in a specific encoding. The code needs to translate this encoding
+	print(json.dumps(dict_list, ensure_ascii=False).encode(cat_res.encoding).decode('latin-1'))
+	
