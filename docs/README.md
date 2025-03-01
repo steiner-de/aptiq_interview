@@ -11,10 +11,10 @@ Additionally capture the following:
   1. Scrape all books in the Humor category:
       - Follow pagination if there are multiple pages.
       - For each book, collect:
-      - UPC (from the product page)
-      - Title
-      - Price
-      - Image URL
+        - UPC (from the product page)
+        - Title
+        - Price
+        - Image URL
   2. Output the collected data as a list of objects in a JSON file, with one entry per book.
       - The output will be stored in a provided directory
   4. Document all steps so another developer can:
