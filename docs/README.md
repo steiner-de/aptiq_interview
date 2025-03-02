@@ -22,5 +22,5 @@ Additionally capture the following:
       - Run the script to reproduce the same results.
 
 # Instructions on how to execute package
-  1. Clone the GitHub repository.
-  2. 
+  1. Ensure Python is installed on the operating system
+  2. Execute the batch file setup.bat
