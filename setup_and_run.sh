@@ -40,10 +40,10 @@ fi
 echo "Requirements installed successfully."
 
 # Execute the Python file
-PYTHON_SCRIPT=/src/main.py
+PYTHON_SCRIPT=./src/main.py
 
 if [ -f $PYTHON_SCRIPT ]; then
-    python $PYTHON_SCRIPT
+    python3 $PYTHON_SCRIPT
     if [ $? -e 0 ]; then
         echo "Failed to execute $PYTHON_SCRIPT."
         exit 1
