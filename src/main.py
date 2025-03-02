@@ -3,13 +3,20 @@ import requests
 from bs4 import BeautifulSoup
 import re
 import json 
+import os
+from datetime import datetime as dt
 from urllib.parse import urljoin	
 # Modules created for repeatability
 from utils import extract_book_details
 
+# GLOBAL VARIABLES
+CATEGORY 		= 'humor'
+URL 			= 'https://books.toscrape.com/'
+OUTPUT_FILE_DIR = os.getcwd()
+OUTPUT_FILE_NAME= f'{CATEGORY}_books_toscrape_{dt.now().date().strftime("%Y%m%d")}.json'
+# Alternatively these values could be saved as variables in a configuration or secrets manager location
+# This would allow the code to remain the same and these values be pulled from a repository that could be changing. 
 
-CATEGORY 	= 'humor'
-URL 		= 'https://books.toscrape.com/'
 
 if __name__ == '__main__':
 	# This program will first start by using beautifulSoup and requests package to identify the categories to load
@@ -37,13 +44,18 @@ if __name__ == '__main__':
 	
 	for book in book_li:
 		# Created a method to extract out this information
-		book_dict 	= extract_book_details(book,c_url)
+		book_dict 	= extract_book_details(book,c_url,encoding=cat_res.encoding)
 		if 'dict_list' in locals():
 			dict_list.append(book_dict)
 		else:
 			dict_list = [book_dict]
 		del book_dict
 		
-	# print the json dumps. The price is in a specific encoding. The code needs to translate this encoding
-	print(json.dumps(dict_list, ensure_ascii=False).encode(cat_res.encoding).decode('latin-1'))
+	# print the json dumps. The price is in a specific encoding. The code needs to ensure ascii
+	print(json.dumps(dict_list, ensure_ascii=False))
+	
+	# Final part of the requirements is to write the data out to a json file
+	# NOTE THIS WILL OVERWRITE THE DATA IF THE DATE VALUE IS MATCHED
+	with open(os.path.join(OUTPUT_FILE_DIR,OUTPUT_FILE_NAME),'w') as fID:
+		json.dump(dict_list,fID,indent=4,ensure_ascii=False)
 	

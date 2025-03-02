@@ -6,9 +6,9 @@ import requests
 from urllib.parse import urljoin
 from bs4 import BeautifulSoup
 
-def extract_upc(category_url, book_page_url):
+def extract_upc(category_url: str, book_page_url: str) -> str:
 	"""
-	This method will return the contents of a webpage and extract out the UPC information 
+	This method will extract the contents of a webpage and return the UPC information 
 	for a given book detail page from the website, toscrape.com
 	
 	INPUTS: 
@@ -33,7 +33,36 @@ def extract_upc(category_url, book_page_url):
 			break 
 	return upc_val
 
-def extract_book_details(book_details,current_url,get_upc=True,get_title=True,get_img=True,get_price=True):
+def extract_book_details(book_details,current_url: str ,encoding: str =None,
+							get_upc: bool =True, get_title: bool =True, get_img: bool =True, 
+							get_price: bool =True) -> dict:
+	"""
+	This method will extract the contents of a webpage and return information 
+	for a given book detail from the category page from the website, toscrape.com
+
+	The idea is that the optional arguments can be chosen to only return select fields.
+	Additionally other inputs could be added in later versions to extract additional information
+	
+	INPUTS: 
+		book_details: bs4.element.Tag
+			A beautiful soup class to handle elements from a html/xml page
+		current_url: str 
+			the current url path to the site that is being processed
+		encoding: str
+			the encoding str for the html/xml content
+		get_upc: bool 
+			boolean to determine to execute a code block. default to TRUE
+		get_title: bool
+			boolean to determine to execute a code block. default to TRUE
+		get_img: bool 
+			boolean to determine to execute a code block. default to TRUE
+		get_price: bool 
+			boolean to determine to execute a code block. default to TRUE
+
+	RETURNS: 
+		book_dict: dict 
+			The extracted contents saved in a dictionary of key value pairs.
+	"""
 	# Navigate to the book page to get the UPC information 
 	# we can get the url relative path with the same extraction for the title
 	a_tag 					= book_details.find('h3').find('a')		
@@ -47,15 +76,16 @@ def extract_book_details(book_details,current_url,get_upc=True,get_title=True,ge
 		book_dict['title'] 		= a_tag.get('title')
 	if get_img:
 		# Extract the price
-		book_dict['image_url'] 	= book_details.find('div',class_='image_container').find('img').get('src') 
+		img_url_relative		= book_details.find('div',class_='image_container').find('img').get('src') 
+		book_dict['image_url'] 	= urljoin(current_url,img_url_relative)
 		# Extract the image url 
 		""" The alt tag in the image seems to match the title for the book. However I think it is a 
 			better system to rely on the actual html text.
 		"""
 	if get_price:
 		# Price is encoded and needs to be corrected to better represent the pound currency 
-		# This will be further encoded and decoded in the json.dumps statement
-		book_dict['price'] 		= book_details.find('p',class_='price_color').contents[0]
+		# Encoding can be determined from get response
+		book_dict['price'] 		= book_details.find('p',class_='price_color').contents[0].encode(encoding).decode()
 	print(f'Finished loading {book_dict["title"]}')
 	return book_dict
 	
