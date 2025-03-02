@@ -23,14 +23,14 @@ Additionally capture the following:
 
 # Instructions on how to execute package (primary)
   1. Ensure Python is installed on the operating system
-  2. Clone the GitHub repository
+  2. Clone the GitHub repository - gh repo clone steiner-de/aptiq_interview
   3. Open the terminal or command prompt and navigate to the local directory containing the cloned repository
   4. Execute the setup_and_run.bat or setup_and_run.bash file (use .bat for Windows and .bash for unix/MacOS
   5. The output file will be generated in the src folder of the repository
   
 # Alternative Execution
   1. Ensure Python is installed on the operating system
-  2. Clone the GitHub repository
+  2. Clone the GitHub repository - gh repo clone steiner-de/aptiq_interview
   3. Open the IDE of your choice and open the GitHub project
   4. Open the terminal/command prompt and navigate to the repository location
   5. In the terminal execute the following command 'pip install -r requirements.txt'
