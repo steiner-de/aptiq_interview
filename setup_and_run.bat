@@ -37,10 +37,10 @@ if exist requirements.txt (
 echo Requirements installed successfully.
 
 :: Execute the Python file
-set PYTHON_SCRIPT=\src\main.py
+set PYTHON_SCRIPT=src\main.py
 
 if exist "%PYTHON_SCRIPT%" (
-    python "%PYTHON_SCRIPT%"
+    python3 "%PYTHON_SCRIPT%"
     if errorlevel 1 (
         echo Failed to execute %PYTHON_SCRIPT%.
         exit /b 1
