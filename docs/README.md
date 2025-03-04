@@ -25,9 +25,10 @@ Additionally capture the following:
   1. Ensure Python is installed on the operating system
   2. Clone the GitHub repository - gh repo clone steiner-de/aptiq_interview
   3. Open the terminal or command prompt and navigate to the local directory containing the cloned repository
-  4. Execute the setup_and_run.bat or setup_and_run.bash file (use .bat for Windows and .bash for unix/MacOS
-  5. The output file will be generated in the src folder of the repository
-  
+  4. Execute the setup_and_run.bat or setup_and_run.sh file (use .bat for Windows and .bash for unix/MacOS
+    a. To execute the setup_and_run.sh file execute the following:
+      `./setup_and_run.sh`
+  5. The output file will be generated in the working directory  
 # Alternative Execution
   1. Ensure Python is installed on the operating system
   2. Clone the GitHub repository - gh repo clone steiner-de/aptiq_interview
@@ -39,4 +40,4 @@ Additionally capture the following:
     b. Option 2: Execute from the command line (windows)
         - python3 src/main.py
     c. Option 3: In the IDE run the /src/main.py file
-  6. Output json file will be located in the /src/ directory
+  6. Output json file will be located in the current working directory.
