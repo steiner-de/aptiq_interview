@@ -40,7 +40,7 @@ echo Requirements installed successfully.
 set PYTHON_SCRIPT=src\main.py
 
 if exist "%PYTHON_SCRIPT%" (
-    python3 "%PYTHON_SCRIPT%"
+    python "%PYTHON_SCRIPT%"
     if errorlevel 1 (
         echo Failed to execute %PYTHON_SCRIPT%.
         exit /b 1
@@ -51,4 +51,8 @@ if exist "%PYTHON_SCRIPT%" (
 )
 
 echo Script executed successfully.
+
+echo Deactivating virtual environment...
+deactivate
+
 endlocal
