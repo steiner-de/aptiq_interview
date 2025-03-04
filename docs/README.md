@@ -21,7 +21,7 @@ Additionally capture the following:
       - Install required libraries (e.g., beautifulsoup4, requests).
       - Run the script to reproduce the same results.
 
-# Instructions on how to execute package (primary)
+# Instructions on how to execute package (suggested)
   1. Ensure Python is installed on the operating system
   2. Clone the GitHub repository - gh repo clone steiner-de/aptiq_interview
   3. Open the terminal or command prompt and navigate to the local directory containing the cloned repository
@@ -31,8 +31,12 @@ Additionally capture the following:
 # Alternative Execution
   1. Ensure Python is installed on the operating system
   2. Clone the GitHub repository - gh repo clone steiner-de/aptiq_interview
-  3. Open the IDE of your choice and open the GitHub project
-  4. Open the terminal/command prompt and navigate to the repository location
-  5. In the terminal execute the following command 'pip install -r requirements.txt'
-  6. In the IDE run the /src/main.py file
-  7. Output json file will be located in the /src/ directory
+  3. Open the terminal/command prompt and navigate to the repository location
+  4. In the terminal/command prompt execute the following command 'pip install -r requirements.txt'
+  5. From the terminal/command prompt execute the following command
+    a. Option 1: Execute from the terminal (Unix/MacOS)
+        - python3 /src/main.py
+    b. Option 2: Execute from the command line (windows)
+        - python3 src/main.py
+    c. Option 3: In the IDE run the /src/main.py file
+  6. Output json file will be located in the /src/ directory
